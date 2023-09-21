@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SwarRachna - Video Dubbing</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* Add your custom CSS styles here */
+        /* ... (previous styles) ... */
+    </style>
+</head>
+<body>
+    <header>
+        <h1>SwarRachna - Video Dubbing</h1>
+    </header>
+    <main>
+        <div class="container">
+            <div class="upload-form">
+                <form method="POST" enctype="multipart/form-data" class="form">
+                    <label for="file">Select a video file (MP4 only):</label>
+                    <input type="file" name="file" id="file" accept=".mp4">
+                    <button type="submit" class="custom-file-upload">Choose File</button>
+                    <span id="file-name">No file chosen</span>
+                    <button type="submit" class="upload-button">Upload and Dub</button>
+                </form>
+            </div>
+            <div class="download-link">
+                {% if video_url %}
+                <h2>Dubbed Video</h2>
+                <p>Click the link below to download the dubbed video:</p>
+                <a href="{{ url_for('download', filename='output_dubbed_video.mp4') }}" download>Download Dubbed Video</a>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+
+    <!-- Include your JavaScript code here -->
+    <script>
+        const fileInput = document.getElementById('file');
+        const fileName = document.getElementById('file-name');
+
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length > 0) {
+                fileName.innerText = fileInput.files[0].name;
+            } else {
+                fileName.innerText = 'No file chosen';
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+header {
+    background-color: #007bff;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+}
+
+h1 {
+    font-size: 36px;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+}
+
+.custom-file-upload {
+    display: inline-block;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    margin: 10px 0;
+}
+
+.custom-file-upload span {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+#file-input {
+    display: none;
+}
+
+#file-name {
+    display: block;
+    margin: 10px 0;
+}
+
+.upload-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.upload-button:hover {
+    background-color: #0056b3;
+}
+
+.success-message {
+    color: #00cc00;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+
+

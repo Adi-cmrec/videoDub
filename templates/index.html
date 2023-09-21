@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SwarRachna - Video Dubbing</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>SwarRachna - A Video Dubbing Application</h1>
+    </header>
+    <main>
+        <div class="container">
+            <div class="upload-form">
+                <form method="POST" enctype="multipart/form-data" class="form">
+                    <label for="file">Select a video file (MP4 only):</label>
+                    <input type="file" name="file" id="file" accept=".mp4">
+                    <label for="target-language">Select target language for dubbing:</label>
+                    <select name="target-language" id="target-language">
+                    <option value="hi">Hindi</option>
+                    <option value="te">Telugu  </option>
+                    <option value="bn">Bengali  </option>
+                    <option value="gu">Gujarati </option>
+                    <option value="kn">Kannada</option>
+                    <option value="ml">Malayalam</option>
+                    <option value="mr">Marathi</option>
+                    <option value="pa">Punjabi </option>
+                    <option value="ta">Tamil </option>
+                    <option value="ur">Urdu </option>
+                    <!-- Add more language options here -->
+                    </select>
+                    <button type="submit" class="upload-button">Upload and Dub</button>
+                    <span id="file-name">No file chosen</span>
+                    <button type="submit" class="custom-file-upload">Choose File</button>
+                </form>
+            </div>
+            <div class="download-link">
+                {% if video_url %}
+                <h2>Dubbed Video</h2>
+                <p>Click the link below to play or download the dubbed video:</p>
+                <div class="video-container">
+                    <video id="dubbed-video" controls width="640" height="360">
+                      <source src="{{ video_url }}" type="video/mp4">
+                      Your browser does not support the video tag.
+                    </video>
+                </div>
+                <a href="{{ video_url }}" download>Download Dubbed Video</a>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+
+    <!-- Include your JavaScript code here -->
+    <script>
+        const fileInput = document.getElementById('file');
+        const fileName = document.getElementById('file-name');
+        const videoElement = document.getElementById('dubbed-video');
+
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length > 0) {
+                fileName.innerText = fileInput.files[0].name;
+                videoElement.src = URL.createObjectURL(fileInput.files[0]);
+                videoElement.style.display = 'block'; // Show the video element
+            } else {
+                fileName.innerText = 'No file chosen';
+                videoElement.style.display = 'none'; // Hide the video element
+            }
+        });
+    </script>
+</body>
+</html>
